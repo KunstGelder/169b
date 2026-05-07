@@ -89,6 +89,56 @@
     cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgEAQAAACJ4248AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRP//FKsxzQAAAAd0SU1FB+oFBw8TK+gz2mIAAADoSURBVFjDY2BAA4KC//8jcNQHBhoDJkyh6I8I9lJ+ejgCAwgKRn2gd0iMOmLUEaOOGHXEqCNGHTHqiFFHjDpiBDnCd4AcIWF1TFzMAuoI8QFwhKAgT6PwVIgDhINg0SGArV9AG/D+/Zd6Nsa0XtZqBgY2lUOtDAyCjO/f0zcQGAQFGRZKyv98K/L4Pwt9bUYCoqGJVoKC//+LzHR/PSAOEBRkZxAU/P9f/PK3T4KCDAvplgZg4P37nwzMxz8v/WfHycvRmvqacSBCQfLcnGt/9yVr/uUcCNsZGBgkfnm8EhT8/1/M/U8xAICMDZGRpLu8AAAAAElFTkSuQmCC') 0 32, pointer;
   }
 
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--white);
+    transition: all 0.3s ease;
+  }
+  nav.scrolled .hamburger span { background: var(--black); }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--black);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .mobile-menu a:hover { opacity: 0.6; }
+
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+    .nav-right { display: none; }
+    nav { grid-template-columns: auto 1fr auto; }
+  }
+
   .fade { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .fade.visible { opacity: 1; transform: none; }
 
@@ -115,8 +165,15 @@
     <li><a href="#workshops">Workshops</a></li>
     <li><a href="#book" style="background:var(--white);color:var(--black);padding:8px 20px;border:none;letter-spacing:0.12em;transition:background 0.2s,color 0.2s;">Book</a></li>
   </ul>
-<div class="nav-right"></div>
+<button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#workshops" class="mobile-link">Workshops</a>
+  <a href="#book" class="mobile-link">Book</a>
+</div>
 
 <section class="hero">
   <div class="hero-img">
